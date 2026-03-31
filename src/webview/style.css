@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background);
+  padding: 16px;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: var(--vscode-editor-foreground);
+}
+
+.chat-history {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: var(--vscode-editor-background);
+}
+
+.chat-message {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.chat-message.user {
+  background-color: var(--vscode-editor-selectionBackground);
+  color: var(--vscode-editor-foreground);
+}
+
+.chat-message.assistant {
+  background-color: var(--vscode-notifications-background);
+  color: var(--vscode-editor-foreground);
+}
+
+.chat-message.system {
+  background-color: var(--vscode-statusBar-warningBackground);
+  color: var(--vscode-statusBar-warningForeground);
+  font-size: 12px;
+}
+
+.chat-message.error {
+  background-color: var(--vscode-statusBar-errorBackground);
+  color: var(--vscode-statusBar-errorForeground);
+  font-size: 12px;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+.btn-secondary {
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+}
+
+.btn-success {
+  background-color: #4ec9b0;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #f48771;
+  color: white;
+}
+
+.status {
+  font-size: 12px;
+  color: var(--vscode-foreground);
+  min-height: 16px;
+}
+
+.text-input {
+  padding: 8px;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font-size: 14px;
+  font-family: "Courier New", monospace;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+}

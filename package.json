@@ -1,0 +1,47 @@
+{
+  "name": "voice-copilot-extension",
+  "displayName": "Voice Copilot Chat",
+  "description": "Talk to GitHub Copilot with voice input and output",
+  "version": "0.0.1",
+  "publisher": "voice-copilot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/voice-copilot-extension"
+  },
+  "homepage": "https://github.com/yourusername/voice-copilot-extension/blob/main/README.md",
+  "bugs": {
+    "url": "https://github.com/yourusername/voice-copilot-extension/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "AI",
+    "Copilot"
+  ],
+  "activationEvents": [
+    "onCommand:voice-copilot.start"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "voice-copilot.start",
+        "title": "Voice Copilot: Start Voice Chat",
+        "category": "Voice Copilot"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.96.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.3.0"
+  }
+}
