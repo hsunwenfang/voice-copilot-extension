@@ -29,7 +29,7 @@
 **作成後、GitHub が以下を表示します:**
 ```
 …create a new repository on the command line
-git remote add origin https://github.com/YOUR-USERNAME/voice-copilot-extension.git
+git remote add origin https://github.com/hsunwenfang/voice-copilot-extension.git
 git branch -M main
 git push -u origin main
 ```
@@ -38,13 +38,13 @@ git push -u origin main
 
 ### 📍 STEP 2: GitHub にプッシュ
 
-**以下のコマンドを実行**（YOUR-USERNAME をあなたの GitHub ユーザー名に置き換え）
+**以下のコマンドを実行**
 
 ```bash
 cd /Users/hsunwenfang/Documents/jp202604/voice-copilot-extension
 
 # リモートを追加
-git remote add origin https://github.com/YOUR-USERNAME/voice-copilot-extension.git
+git remote add origin https://github.com/hsunwenfang/voice-copilot-extension.git
 
 # 初回プッシュ
 git branch -M main
@@ -149,7 +149,7 @@ vsce publish
 ```bash
 # STEP 2 を実行（5分以内）
 cd /Users/hsunwenfang/Documents/jp202604/voice-copilot-extension
-git remote add origin https://github.com/YOUR-USERNAME/voice-copilot-extension.git
+git remote add origin https://github.com/hsunwenfang/voice-copilot-extension.git
 git push -u origin main
 ```
 
@@ -163,7 +163,7 @@ git push -u origin main
 - [ ] GitHub リポジトリを作成
 - [ ] `git remote add` コマンドを実行
 - [ ] `git push` コマンドを実行
-- [ ] GitHub で確認（https://github.com/YOUR-USERNAME/voice-copilot-extension）
+- [ ] GitHub で確認（https://github.com/hsunwenfang/voice-copilot-extension）
 - [ ] （オプション）GitHub Release を作成
 - [ ] （オプション）Marketplace に公開
 

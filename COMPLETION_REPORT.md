@@ -63,7 +63,7 @@ voice-copilot-extension-0.0.1.vsix (14 KB)
 cd /Users/hsunwenfang/Documents/jp202604/voice-copilot-extension
 
 # GitHub で新規リポジトリ作成後、実行:
-git remote add origin https://github.com/YOUR-USERNAME/voice-copilot-extension.git
+git remote add origin https://github.com/hsunwenfang/voice-copilot-extension.git
 git push -u origin main
 ```
 
@@ -219,7 +219,7 @@ https://github.com/new → リポジトリ作成
 ### 2️⃣ プッシュ（1 分）
 ```bash
 cd /Users/hsunwenfang/Documents/jp202604/voice-copilot-extension
-git remote add origin https://github.com/YOUR-USERNAME/voice-copilot-extension.git
+git remote add origin https://github.com/hsunwenfang/voice-copilot-extension.git
 git push -u origin main
 ```
 
