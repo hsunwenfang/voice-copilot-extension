@@ -6,11 +6,11 @@
   "publisher": "voice-copilot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/voice-copilot-extension"
+    "url": "https://github.com/hsunwenfang/voice-copilot-extension"
   },
-  "homepage": "https://github.com/yourusername/voice-copilot-extension/blob/main/README.md",
+  "homepage": "https://github.com/hsunwenfang/voice-copilot-extension/blob/main/README.md",
   "bugs": {
-    "url": "https://github.com/yourusername/voice-copilot-extension/issues"
+    "url": "https://github.com/hsunwenfang/voice-copilot-extension/issues"
   },
   "license": "MIT",
   "engines": {
@@ -19,6 +19,14 @@
   "categories": [
     "AI",
     "Copilot"
+  ],
+  "keywords": [
+    "voice",
+    "copilot",
+    "speech",
+    "AI",
+    "chat",
+    "japanese"
   ],
   "activationEvents": [
     "onCommand:voice-copilot.start"

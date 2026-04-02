@@ -5,6 +5,7 @@ const listenBtn = document.getElementById("listenBtn");
 const speakBtn = document.getElementById("speakBtn");
 const sendBtn = document.getElementById("sendBtn");
 const clearBtn = document.getElementById("clearBtn");
+const langSelect = document.getElementById("langSelect");
 const textInput = document.getElementById("textInput");
 const chatHistory = document.getElementById("chatHistory");
 const status = document.getElementById("status");
@@ -12,6 +13,7 @@ const status = document.getElementById("status");
 let recognition;
 let lastResponse = "";
 let isListening = false;
+let streamingDiv = null;
 
 // Web Speech API の初期化
 function initSpeechRecognition() {
@@ -23,7 +25,7 @@ function initSpeechRecognition() {
   }
 
   recognition = new SpeechRecognition();
-  recognition.lang = "en-US";
+  recognition.lang = langSelect ? langSelect.value : "en-US";
   recognition.continuous = false;
   recognition.interimResults = true;
 
@@ -115,7 +117,7 @@ function showStatus(text, type = "system") {
 // テキスト to スピーチ
 function speakText(text) {
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "en-US";
+  utterance.lang = langSelect ? langSelect.value : "en-US";
   utterance.rate = 1;
   utterance.pitch = 1;
 
@@ -152,6 +154,7 @@ listenBtn.addEventListener("click", startListening);
 sendBtn.addEventListener("click", sendToCopilot);
 speakBtn.addEventListener("click", () => speakText(lastResponse));
 clearBtn.addEventListener("click", clearChat);
+langSelect.addEventListener("change", () => { recognition = null; }); // 言語変更時は認識器をリセット
 
 textInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
@@ -163,7 +166,20 @@ textInput.addEventListener("keydown", (e) => {
 window.addEventListener("message", (event) => {
   const message = event.data;
 
-  if (message.command === "response") {
+  if (message.command === "chunk") {
+    if (!streamingDiv) {
+      streamingDiv = document.createElement("div");
+      streamingDiv.className = "chat-message assistant";
+      chatHistory.appendChild(streamingDiv);
+    }
+    streamingDiv.textContent += message.text;
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  } else if (message.command === "responseEnd") {
+    lastResponse = message.text;
+    streamingDiv = null;
+    speakBtn.disabled = false;
+    showStatus("Response received. Click Speak Response to hear it.", "system");
+  } else if (message.command === "response") {
     lastResponse = message.text;
     addChatMessage(message.text, "assistant");
     speakBtn.disabled = false;

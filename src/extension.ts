@@ -27,14 +27,15 @@ function createOrShowVoiceCopilotPanel(context: vscode.ExtensionContext) {
     {
       enableScripts: true,
       retainContextWhenHidden: true,
+      localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, "out")],
     }
   );
 
   const scriptUri = voiceCopilotPanel.webview.asWebviewUri(
-    vscode.Uri.joinPath(context.extensionUri, "src", "webview", "script.js")
+    vscode.Uri.joinPath(context.extensionUri, "out", "webview", "script.js")
   );
   const styleUri = voiceCopilotPanel.webview.asWebviewUri(
-    vscode.Uri.joinPath(context.extensionUri, "src", "webview", "style.css")
+    vscode.Uri.joinPath(context.extensionUri, "out", "webview", "style.css")
   );
 
   voiceCopilotPanel.webview.html = getWebviewContent(scriptUri, styleUri);
@@ -92,24 +93,22 @@ async function handleCopilotRequest(
       vscode.LanguageModelChatMessage.User(prompt),
     ];
 
-    // リクエストを送信
-    const response = await model.sendRequest(
-      messages,
-      {},
-      new vscode.CancellationTokenSource().token
-    );
+    // リクエストを送信（CancellationTokenSource は必ず dispose）
+    const cts = new vscode.CancellationTokenSource();
+    try {
+      const response = await model.sendRequest(messages, {}, cts.token);
 
-    // レスポンスをストリーミングで受け取る
-    let fullResponse = "";
-    for await (const fragment of response.text) {
-      fullResponse += fragment;
+      // チャンク毎に Webview へ送信（リアルタイムストリーミング）
+      let fullResponse = "";
+      for await (const fragment of response.text) {
+        fullResponse += fragment;
+        panel.webview.postMessage({ command: "chunk", text: fragment });
+      }
+
+      panel.webview.postMessage({ command: "responseEnd", text: fullResponse });
+    } finally {
+      cts.dispose();
     }
-
-    // Webview に結果を送信
-    panel.webview.postMessage({
-      command: "response",
-      text: fullResponse,
-    });
   } catch (error: any) {
     let errorMessage = "Unknown error";
     if (error instanceof vscode.LanguageModelError) {
@@ -144,6 +143,12 @@ function getWebviewContent(
     
     <div class="input-section">
       <div class="button-group">
+        <select id="langSelect" class="lang-select">
+          <option value="ja-JP">🇯🇵 日本語</option>
+          <option value="en-US" selected>🇺🇸 English</option>
+          <option value="zh-TW">🇹🇼 繁體中文</option>
+          <option value="zh-CN">🇨🇳 普通話</option>
+        </select>
         <button id="listenBtn" class="btn btn-primary">🎤 Listen</button>
         <button id="speakBtn" class="btn btn-secondary" disabled>🔊 Speak Response</button>
         <button id="clearBtn" class="btn btn-danger">Clear</button>
